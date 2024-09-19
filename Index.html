@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        tbody tr:hover {
+            background: #f1f1f1;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Inventory Management System</h1>
+    </header>
+
+    <main>
+        <section id="add-item">
+            <h2>Add New Item</h2>
+            <form id="addItemForm">
+                <input type="text" id="itemName" placeholder="Item Name" required>
+                <input type="number" id="itemQuantity" placeholder="Quantity" required>
+                <input type="text" id="itemPrice" placeholder="Price" required>
+                <button type="submit">Add Item</button>
+            </form>
+        </section>
+
+        <section id="inventory-list">
+            <h2>Current Inventory</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="itemTableBody">
+                    <!-- Inventory items will be populated here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Inventory System</p>
+    </footer>
+
+    <script>
+        const addItemForm = document.getElementById('addItemForm');
+        const itemTableBody = document.getElementById('itemTableBody');
+
+        addItemForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const itemName = document.getElementById('itemName').value;
+            const itemQuantity = document.getElementById('itemQuantity').value;
+            const itemPrice = document.getElementById('itemPrice').value;
+
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${itemName}</td>
+                <td>${itemQuantity}</td>
+                <td>${itemPrice}</td>
+                <td><button class="deleteBtn">Delete</button></td>
+            `;
+            itemTableBody.appendChild(newRow);
+
+            // Clear the form
+            addItemForm.reset();
+
+            // Add delete functionality
+            const deleteButton = newRow.querySelector('.deleteBtn');
+            deleteButton.addEventListener('click', function() {
+                itemTableBody.removeChild(newRow);
+            });
+        });
+    </script>
+
+</body>
+</html>
